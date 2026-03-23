@@ -359,10 +359,10 @@ export class SupabaseService {
     return this.toCamelCase(data);
   }
 
-  // ==================== UBICACIONES ====================
+  // ==================== LOCATIONS ====================
 
   /**
-   * Obtiene todas las ubicaciones
+   * Gets all locations
    */
   async getLocations() {
     const [locResult, binResult] = await Promise.all([
@@ -385,7 +385,7 @@ export class SupabaseService {
   }
 
   /**
-   * Crea una nueva ubicación
+   * Creates a new location
    */
   async createLocation(location: any) {
     // Asegurar valores por defecto para campos opcionales
@@ -398,8 +398,8 @@ export class SupabaseService {
       row: location.row,
       bay: location.bay,
       level: location.level,
-      storage_name: location.storageName,
-      custom_name: location.customName !== undefined ? location.customName : false,
+      storage_name: location.storage_name || location.storageName,
+      custom_name: location.custom_name !== undefined ? location.custom_name : (location.customName !== undefined ? location.customName : false),
       content: location.content || null,
       active: location.active !== undefined ? location.active : true
     };
@@ -413,14 +413,14 @@ export class SupabaseService {
       .single();
 
     if (error) {
-      console.error('Error de Supabase al crear ubicación:', error);
+      console.error('Supabase error creating location:', error);
       throw error;
     }
     return this.toCamelCase(data);
   }
 
   /**
-   * Actualiza una ubicación
+   * Updates a location
    */
   async updateLocation(id: string, updates: any) {
     // Convertir a snake_case para Supabase
@@ -434,14 +434,14 @@ export class SupabaseService {
       .single();
 
     if (error) {
-      console.error('Error de Supabase al actualizar ubicación:', error);
+      console.error('Supabase error updating location:', error);
       throw error;
     }
     return this.toCamelCase(data);
   }
 
   /**
-   * Elimina una ubicación
+   * Deletes a location
    */
   async deleteLocation(id: string) {
     const { data, error } = await this.supabase
@@ -456,7 +456,7 @@ export class SupabaseService {
   }
 
   /**
-   * Genera ubicaciones en masa
+   * Generates locations in bulk
    */
   async generateLocations(params: any) {
     const locations = [];
@@ -499,7 +499,7 @@ export class SupabaseService {
       }
     }
 
-    console.log('Generando ubicaciones en masa:', locations.length);
+    console.log('Generating locations in bulk:', locations.length);
 
     const { data, error } = await this.supabase
       .from('locations')
@@ -507,7 +507,7 @@ export class SupabaseService {
       .select();
 
     if (error) {
-      console.error('Error de Supabase al generar ubicaciones:', error);
+      console.error('Supabase error generating locations:', error);
       throw error;
     }
 
@@ -517,7 +517,7 @@ export class SupabaseService {
   // ==================== BINS ====================
 
   /**
-   * Obtiene bins de una ubicación
+   * Gets bins for a location
    */
   async getBinsByLocation(locationId: string) {
     const { data, error } = await this.supabase
@@ -578,6 +578,83 @@ export class SupabaseService {
   async deleteBin(id: string) {
     const { data, error } = await this.supabase
       .from('bins')
+      .delete()
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
+  // ==================== WAREHOUSE LAYOUTS ====================
+
+  /**
+   * Obtiene todos los layouts de almacén
+   */
+  async getWarehouseLayouts() {
+    const { data, error } = await this.supabase
+      .from('warehouse_layouts')
+      .select('id, name, updated_at')
+      .order('updated_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+  }
+
+  /**
+   * Obtiene un layout de almacén por ID
+   */
+  async getWarehouseLayout(id: string) {
+    const { data, error } = await this.supabase
+      .from('warehouse_layouts')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
+  /**
+   * Guarda o actualiza un layout de almacén (upsert por nombre)
+   */
+  async saveWarehouseLayout(name: string, layoutData: any) {
+    // Check if exists by name
+    const { data: existing } = await this.supabase
+      .from('warehouse_layouts')
+      .select('id')
+      .eq('name', name)
+      .maybeSingle();
+
+    if (existing?.id) {
+      const { data, error } = await this.supabase
+        .from('warehouse_layouts')
+        .update({ layout_data: layoutData, updated_at: new Date().toISOString() })
+        .eq('id', existing.id)
+        .select()
+        .single();
+
+      if (error) throw error;
+      return data;
+    } else {
+      const { data, error } = await this.supabase
+        .from('warehouse_layouts')
+        .insert([{ name, layout_data: layoutData }])
+        .select()
+        .single();
+
+      if (error) throw error;
+      return data;
+    }
+  }
+
+  /**
+   * Elimina un layout de almacén
+   */
+  async deleteWarehouseLayout(id: string) {
+    const { data, error } = await this.supabase
+      .from('warehouse_layouts')
       .delete()
       .eq('id', id)
       .select()

@@ -132,11 +132,11 @@ export class LocationList implements OnInit {
     }
 
     createNewLocation(): void {
-        this.router.navigate(['/ubicaciones/nuevo']);
+        this.router.navigate(['/locations/new']);
     }
 
     openGenerator(): void {
-        this.router.navigate(['/ubicaciones/generador']);
+        this.router.navigate(['/locations/generator']);
     }
 
     openDesigner(): void {
@@ -144,16 +144,16 @@ export class LocationList implements OnInit {
     }
 
     editLocation(locationId: string): void {
-        this.router.navigate(['/ubicaciones/editar', locationId]);
+        this.router.navigate(['/locations/edit', locationId]);
     }
 
     viewBins(locationId: string): void {
-        this.router.navigate(['/ubicaciones', locationId, 'bins']);
+        this.router.navigate(['/locations', locationId, 'bins']);
     }
 
     deleteLocation(location: Location): void {
         this.confirmationService.confirm({
-            message: `¿Está seguro que desea eliminar la ubicación "${location.storageName}"?`,
+            message: `Are you sure you want to delete location "${location.storageName}"?`,
             header: 'Confirmar Eliminación',
             icon: 'pi pi-exclamation-triangle',
             acceptLabel: 'Sí, eliminar',
@@ -165,14 +165,14 @@ export class LocationList implements OnInit {
                     this.messageService.add({
                         severity: 'success',
                         summary: 'Eliminado',
-                        detail: 'Ubicación eliminada correctamente',
+                        detail: 'Location deleted successfully',
                         life: 3000
                     });
                 } else {
                     this.messageService.add({
                         severity: 'error',
                         summary: 'Error',
-                        detail: 'No se pudo eliminar la ubicación',
+                        detail: 'Could not delete location',
                         life: 3000
                     });
                 }

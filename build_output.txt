@@ -1,0 +1,28 @@
+
+> producto-app@1.0.0 build
+> ng build
+
+[33mÔØ»[39m Building...
+[32mÔ£ö[39m Building...
+Application bundle generation failed. [4.577 seconds]
+
+Ôû▓ [WARNING] TS-998113: BinGenerator is not used within the template of BinList [plugin angular-compiler]
+
+    src/app/pages/bins/bin-list.ts:50:8:
+      50 Ôöé         BinGenerator,
+         ÔòÁ         ~~~~~~~~~~~~
+
+
+X [ERROR] NG7: This comparison appears to be unintentional because the types '"frame" | "location" | "bin" | "wall" | "dockdoor"' and '"zone"' have no overlap. [plugin angular-compiler]
+
+    src/app/pages/warehouse/warehouse-designer.html:124:34:
+      124 Ôöé ...           <g *ngIf="item.type === 'zone'" class="dw-item" (mo...
+          ÔòÁ                         ~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component WarehouseDesigner.
+
+    src/app/pages/warehouse/warehouse-designer.ts:24:17:
+      24 Ôöé     templateUrl: './warehouse-designer.html',
+         ÔòÁ                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+

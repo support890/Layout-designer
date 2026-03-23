@@ -5,15 +5,15 @@
     <!-- Encabezado con botones -->
     <div class="flex justify-between items-start mb-4">
         <div>
-            <h2 class="text-3xl font-bold text-surface-900 dark:text-surface-0 m-0">Gestión de ubicaciones</h2>
+            <h2 class="text-3xl font-bold text-surface-900 dark:text-surface-0 m-0">Location Management</h2>
         </div>
         <div class="flex gap-3 items-center">
-            <p-button label="Nueva Ubicación" icon="pi pi-plus" (onClick)="createNewLocation()"
+            <p-button label="New Location" icon="pi pi-plus" (onClick)="createNewLocation()"
                 styleClass="p-button-success">
             </p-button>
-            <p-button label="Generador" icon="pi pi-cog" (onClick)="openGenerator()" styleClass="p-button-info">
+            <p-button label="Generator" icon="pi pi-cog" (onClick)="openGenerator()" styleClass="p-button-info">
             </p-button>
-            <p-button label="Diseñador" icon="pi pi-map" (onClick)="openDesigner()" styleClass="p-button-secondary">
+            <p-button label="Designer" icon="pi pi-map" (onClick)="openDesigner()" styleClass="p-button-secondary">
             </p-button>
             <p-iconfield>
                 <p-inputicon styleClass="pi pi-search" />
@@ -27,7 +27,7 @@
     <!-- Tabla -->
     <p-table [value]="filteredLocations" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20, 50]"
         [showCurrentPageReport]="true"
-        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} ubicaciones"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} locations"
         styleClass="p-datatable-gridlines">
 
         <ng-template pTemplate="header">
@@ -85,7 +85,7 @@
                 <td colspan="7" class="text-center py-8">
                     <div class="flex flex-col items-center gap-3">
                         <i class="pi pi-inbox text-4xl text-gray-400"></i>
-                        <p class="text-gray-500">No se encontraron ubicaciones</p>
+                        <p class="text-gray-500">No locations found</p>
                     </div>
                 </td>
             </tr>
@@ -109,10 +109,10 @@
         <div class="w-full" style="padding: 0.5rem 0.25rem;">
             <div class="flex items-center gap-2 mb-2">
                 <i class="pi pi-box" style="color: #1a4fa0; font-size: 1.25rem;"></i>
-                <span class="font-bold text-xl">Nuevo Bin</span>
+                <span class="font-bold text-xl">New Bin</span>
             </div>
             <div *ngIf="selectedLocation" class="text-sm text-surface-500 mb-6">
-                Ubicación: <span class="font-semibold text-primary">{{ selectedLocation.storageName }}</span>
+                Location: <span class="font-semibold text-primary">{{ selectedLocation.storageName }}</span>
             </div>
             <p-selectButton
                 [options]="binModeOptions"
@@ -134,7 +134,7 @@
             <input
                 pInputText
                 [(ngModel)]="newBin.binName"
-                placeholder="Ej: BIN-001"
+                placeholder="E.g.: BIN-001"
                 class="w-full"
                 (keyup.enter)="saveBin()" />
         </div>
@@ -150,7 +150,7 @@
                 incrementButtonClass="p-button-outlined"
                 incrementButtonIcon="pi pi-plus"
                 decrementButtonIcon="pi pi-minus"
-                placeholder="Capacidad máxima"
+                placeholder="Max capacity"
                 styleClass="w-full">
             </p-inputNumber>
         </div>
@@ -158,12 +158,12 @@
         <div>
             <label class="block mb-2 font-semibold">Current Stock</label>
             <p-inputNumber [ngModel]="0" [disabled]="true" styleClass="w-full"></p-inputNumber>
-            <small class="text-surface-500">El stock inicial siempre es 0</small>
+            <small class="text-surface-500">Initial stock is always 0</small>
         </div>
 
         <div class="flex items-center gap-3">
             <p-inputSwitch [(ngModel)]="newBin.active"></p-inputSwitch>
-            <label>{{ newBin.active ? 'Activo' : 'Inactivo' }}</label>
+            <label>{{ newBin.active ? 'Active' : 'Inactive' }}</label>
         </div>
 
     </div>
@@ -173,14 +173,14 @@
 
         <!-- Prefijo (fila completa) -->
         <div>
-            <label class="block mb-2 font-semibold">Prefijo <span class="text-red-500">*</span></label>
+            <label class="block mb-2 font-semibold">Prefix <span class="text-red-500">*</span></label>
             <input pInputText [(ngModel)]="bulkPrefix" placeholder="BIN" class="w-full font-mono" />
         </div>
 
         <!-- Desde / Hasta (dos columnas iguales) -->
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <label class="block mb-2 font-semibold">Desde</label>
+                <label class="block mb-2 font-semibold">From</label>
                 <p-inputNumber
                     [(ngModel)]="bulkStartNumber"
                     [min]="1"
@@ -194,7 +194,7 @@
                 </p-inputNumber>
             </div>
             <div>
-                <label class="block mb-2 font-semibold">Hasta</label>
+                <label class="block mb-2 font-semibold">To</label>
                 <p-inputNumber
                     [(ngModel)]="bulkEndNumber"
                     [min]="1"
@@ -228,7 +228,7 @@
             </div>
             <div class="flex items-center gap-3 pb-1">
                 <p-inputSwitch [(ngModel)]="bulkActive"></p-inputSwitch>
-                <label>{{ bulkActive ? 'Activos' : 'Inactivos' }}</label>
+                <label>{{ bulkActive ? 'Active' : 'Inactive' }}</label>
             </div>
         </div>
 
@@ -237,7 +237,7 @@
 
         <!-- Formato del nombre -->
         <div>
-            <label class="block mb-2 font-semibold">Formato del nombre</label>
+            <label class="block mb-2 font-semibold">Name Format</label>
             <div class="flex gap-2 mb-2">
                 <span
                     *ngFor="let token of bulkTokens"
@@ -250,14 +250,14 @@
             <input
                 pInputText
                 [(ngModel)]="bulkNameFormat"
-                placeholder="Ej: {Prefix}-{Number}"
+                placeholder="E.g.: {Prefix}-{Number}"
                 class="w-full font-mono" />
-            <small class="text-surface-500">Haz clic en los tokens para insertarlos en el formato</small>
+            <small class="text-surface-500">Click on tokens to insert them into the format</small>
         </div>
 
         <!-- Vista previa -->
         <div>
-            <label class="block mb-2 font-semibold">Vista previa</label>
+            <label class="block mb-2 font-semibold">Preview</label>
             <input
                 pInputText
                 [ngModel]="bulkPreview"
@@ -270,13 +270,13 @@
     <ng-template pTemplate="footer">
         <div class="flex gap-2 justify-end">
             <p-button
-                label="Cancelar"
+                label="Cancel"
                 icon="pi pi-times"
                 [outlined]="true"
                 (onClick)="closeNewBinDialog()">
             </p-button>
             <p-button
-                [label]="binDialogMode === 'bulk' ? 'Crear ' + bulkTotal + ' Bins' : 'Guardar Bin'"
+                [label]="binDialogMode === 'bulk' ? 'Create ' + bulkTotal + ' Bins' : 'Save Bin'"
                 icon="pi pi-check"
                 severity="success"
                 [loading]="savingBin"

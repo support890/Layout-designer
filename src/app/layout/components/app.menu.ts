@@ -56,21 +56,21 @@ export class AppMenu {
             ]
         },
         {
-            label: 'Ubicaciones',
+            label: 'Locations',
             icon: 'pi pi-map-marker',
             items: [
                 {
-                    label: 'Gestión de Ubicaciones',
+                    label: 'Location Management',
                     icon: 'pi pi-list',
-                    routerLink: ['/ubicaciones']
+                    routerLink: ['/locations']
                 },
                 {
-                    label: 'Nueva Ubicación',
+                    label: 'New Location',
                     icon: 'pi pi-plus-circle',
-                    routerLink: ['/ubicaciones/nuevo']
+                    routerLink: ['/locations/new']
                 },
                 {
-                    label: 'Diseñador de Almacén',
+                    label: 'Layout Designer',
                     icon: 'pi pi-map',
                     routerLink: ['/almacen/disenador']
                 }

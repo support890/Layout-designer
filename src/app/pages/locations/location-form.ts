@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -51,6 +51,11 @@ export class LocationForm implements OnInit {
 
     isEditMode: boolean = false;
     locationId: string = '';
+
+    @Input() popupMode: boolean = false;
+    @Input() popupLocation: Partial<Location> | null = null;
+    @Output() saved = new EventEmitter<Location>();
+    @Output() cancelled = new EventEmitter<void>();
 
     categoryOptions = [
         { label: 'REGULAR', value: 'REGULAR' },
@@ -114,13 +119,29 @@ export class LocationForm implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.route.params.subscribe(params => {
-            if (params['id']) {
+        if (!this.popupMode) {
+            this.route.params.subscribe(params => {
+                if (params['id']) {
+                    this.isEditMode = true;
+                    this.locationId = params['id'];
+                    this.loadLocation(this.locationId);
+                }
+            });
+        }
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (this.popupMode && changes['popupLocation'] && this.popupLocation) {
+            this.location = { ...this.location, ...this.popupLocation };
+            if (this.popupLocation.id) {
                 this.isEditMode = true;
-                this.locationId = params['id'];
+                this.locationId = this.popupLocation.id;
                 this.loadLocation(this.locationId);
+            } else {
+                this.isEditMode = false;
+                this.locationId = '';
             }
-        });
+        }
     }
 
     async loadLocation(id: string): Promise<void> {
@@ -128,7 +149,7 @@ export class LocationForm implements OnInit {
         if (location) {
             this.location = { ...location };
         } else {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ubicación no encontrada' });
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Location not found' });
             this.goBack();
         }
     }
@@ -179,19 +200,25 @@ export class LocationForm implements OnInit {
             if (this.isEditMode) {
                 const result = await this.locationService.updateLocation(this.locationId, this.location);
                 if (result) {
-                    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Ubicación actualizada correctamente' });
+                    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Location updated successfully' });
+                    Object.assign(this.location, result);
                 } else throw new Error('Error al actualizar');
             } else {
                 const result = await this.locationService.createLocation(this.location);
                 if (result) {
-                    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Ubicación creada correctamente' });
+                    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Location created successfully' });
+                    Object.assign(this.location, result);
                 } else throw new Error('Error al crear');
             }
-            setTimeout(() => this.goBack(), 1000);
+            if (this.popupMode) {
+                this.saved.emit(this.location);
+            } else {
+                setTimeout(() => this.goBack(), 1000);
+            }
         } catch (error) {
             this.messageService.add({
                 severity: 'error', summary: 'Error',
-                detail: error instanceof Error ? error.message : 'Error al guardar la ubicación'
+                detail: error instanceof Error ? error.message : 'Error saving location'
             });
         }
     }
@@ -203,11 +230,11 @@ export class LocationForm implements OnInit {
             if (result) {
                 this.newlyCreatedLocationId = result.id!;
                 this.showBinDialog = true;
-            } else throw new Error('Error al crear la ubicación');
+            } else throw new Error('Error creating location');
         } catch (error) {
             this.messageService.add({
                 severity: 'error', summary: 'Error',
-                detail: error instanceof Error ? error.message : 'Error al guardar la ubicación'
+                detail: error instanceof Error ? error.message : 'Error saving location'
             });
         }
     }
@@ -253,7 +280,11 @@ export class LocationForm implements OnInit {
     }
 
     goBack(): void {
-        this.router.navigate(['/ubicaciones']);
+        if (this.popupMode) {
+            this.cancelled.emit();
+        } else {
+            this.router.navigate(['/locations']);
+        }
     }
 
 }

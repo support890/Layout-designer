@@ -9,24 +9,24 @@
         </p-button>
         <div>
             <h2 class="text-3xl font-bold text-surface-900 dark:text-surface-0 m-0">
-                {{ isEditMode ? 'Editar Proveedor' : 'Nuevo Proveedor' }}
+                {{ isEditMode ? 'Edit Supplier' : 'New Supplier' }}
             </h2>
             <p class="text-surface-600 dark:text-surface-400 mt-2">
-                {{ isEditMode ? 'Modifica los detalles del proveedor' : 'Crea un nuevo proveedor para tus productos' }}
+                {{ isEditMode ? 'Modify the supplier details' : 'Create a new supplier for your products' }}
             </p>
         </div>
     </div>
 
     <form (ngSubmit)="onSubmit()" #supplierForm="ngForm">
         <div class="grid grid-cols-12 gap-6">
-            <!-- Información Principal -->
+            <!-- Main Information -->
             <div class="col-span-12 lg:col-span-8">
-                <p-card header="Información del Proveedor">
+                <p-card header="Supplier Information">
                     <div class="grid grid-cols-12 gap-4">
-                        <!-- Nombre de la Empresa -->
+                        <!-- Company Name -->
                         <div class="col-span-12">
                             <label for="name" class="block mb-2 font-semibold">
-                                Nombre de la Empresa <span class="text-red-500">*</span>
+                                Company Name <span class="text-red-500">*</span>
                             </label>
                             <input 
                                 pInputText 
@@ -35,13 +35,13 @@
                                 [(ngModel)]="supplier.name" 
                                 required
                                 class="w-full"
-                                placeholder="Ej: Tech Solutions Inc." />
+                                placeholder="E.g.: Tech Solutions Inc." />
                         </div>
 
-                        <!-- Nombre del Contacto -->
+                        <!-- Contact Name -->
                         <div class="col-span-12 md:col-span-6">
                             <label for="contactName" class="block mb-2 font-semibold">
-                                Nombre del Contacto <span class="text-red-500">*</span>
+                                Contact Name <span class="text-red-500">*</span>
                             </label>
                             <input 
                                 pInputText 
@@ -50,7 +50,7 @@
                                 [(ngModel)]="supplier.contactName" 
                                 required
                                 class="w-full"
-                                placeholder="Ej: Juan Pérez" />
+                                placeholder="E.g.: John Doe" />
                         </div>
 
                         <!-- Email -->
@@ -66,13 +66,13 @@
                                 [(ngModel)]="supplier.email" 
                                 required
                                 class="w-full"
-                                placeholder="contacto@empresa.com" />
+                                placeholder="contact@company.com" />
                         </div>
 
-                        <!-- Teléfono -->
+                        <!-- Phone -->
                         <div class="col-span-12 md:col-span-6">
                             <label for="phone" class="block mb-2 font-semibold">
-                                Teléfono <span class="text-red-500">*</span>
+                                Phone <span class="text-red-500">*</span>
                             </label>
                             <input 
                                 pInputText 
@@ -84,10 +84,10 @@
                                 placeholder="+1 234 567 8900" />
                         </div>
 
-                        <!-- Sitio Web -->
+                        <!-- Website -->
                         <div class="col-span-12 md:col-span-6">
                             <label for="website" class="block mb-2 font-semibold">
-                                Sitio Web
+                                Website
                             </label>
                             <input 
                                 pInputText 
@@ -95,13 +95,13 @@
                                 name="website"
                                 [(ngModel)]="supplier.website" 
                                 class="w-full"
-                                placeholder="www.empresa.com" />
+                                placeholder="www.company.com" />
                         </div>
 
-                        <!-- Dirección -->
+                        <!-- Address -->
                         <div class="col-span-12">
                             <label for="address" class="block mb-2 font-semibold">
-                                Dirección
+                                Address
                             </label>
                             <input 
                                 pInputText 
@@ -109,13 +109,13 @@
                                 name="address"
                                 [(ngModel)]="supplier.address" 
                                 class="w-full"
-                                placeholder="Calle Principal 123" />
+                                placeholder="123 Main Street" />
                         </div>
 
-                        <!-- Ciudad -->
+                        <!-- City -->
                         <div class="col-span-12 md:col-span-6">
                             <label for="city" class="block mb-2 font-semibold">
-                                Ciudad
+                                City
                             </label>
                             <input 
                                 pInputText 
@@ -123,13 +123,13 @@
                                 name="city"
                                 [(ngModel)]="supplier.city" 
                                 class="w-full"
-                                placeholder="Ciudad" />
+                                placeholder="City" />
                         </div>
 
-                        <!-- País -->
+                        <!-- Country -->
                         <div class="col-span-12 md:col-span-6">
                             <label for="country" class="block mb-2 font-semibold">
-                                País
+                                Country
                             </label>
                             <input 
                                 pInputText 
@@ -137,15 +137,15 @@
                                 name="country"
                                 [(ngModel)]="supplier.country" 
                                 class="w-full"
-                                placeholder="País" />
+                                placeholder="Country" />
                         </div>
                     </div>
                 </p-card>
             </div>
 
-            <!-- Panel Lateral -->
+            <!-- Side Panel -->
             <div class="col-span-12 lg:col-span-4">
-                <p-card header="Estado">
+                <p-card header="Status">
                     <div class="flex items-center">
                         <p-checkbox 
                             [(ngModel)]="supplier.active" 
@@ -154,7 +154,7 @@
                             name="active">
                         </p-checkbox>
                         <label for="active" class="ml-3 cursor-pointer">
-                            Proveedor Activo
+                            Active Supplier
                         </label>
                     </div>
                 </p-card>
@@ -162,14 +162,14 @@
                 <div class="flex flex-col gap-2 mt-4">
                     <p-button 
                         type="submit"
-                        [label]="isEditMode ? 'Actualizar Proveedor' : 'Guardar Proveedor'"
+                        [label]="isEditMode ? 'Update Supplier' : 'Save Supplier'"
                         icon="pi pi-check"
                         styleClass="w-full"
                         severity="success">
                     </p-button>
                     <p-button 
                         type="button"
-                        label="Cancelar" 
+                        label="Cancel" 
                         icon="pi pi-times"
                         (onClick)="goBack()"
                         styleClass="w-full"

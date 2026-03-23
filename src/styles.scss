@@ -3,3 +3,9 @@
 @use './assets/layout/layout.scss';
 @use 'primeicons/primeicons.css';
 
+/* Hide checkmarks in p-dropdown / p-select single-selection overlays */
+.p-select-option-check-icon,
+.p-select-list .p-icon {
+    display: none !important;
+}
+

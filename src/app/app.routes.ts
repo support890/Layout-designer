@@ -55,38 +55,38 @@ export const routes: Routes = [
                 loadComponent: () => import('./pages/supabase-test/supabase-test.component').then((c) => c.SupabaseTestComponent)
             },
             {
-                path: 'ubicaciones',
-                data: { breadcrumb: 'Gestión de Ubicaciones' },
+                path: 'locations',
+                data: { breadcrumb: 'Location Management' },
                 canActivate: [authGuard],
                 loadComponent: () => import('./pages/locations/location-list').then((c) => c.LocationList)
             },
             {
-                path: 'ubicaciones/nuevo',
-                data: { breadcrumb: 'Nueva Ubicación' },
+                path: 'locations/new',
+                data: { breadcrumb: 'New Location' },
                 canActivate: [authGuard],
                 loadComponent: () => import('./pages/locations/location-form').then((c) => c.LocationForm)
             },
             {
-                path: 'ubicaciones/editar/:id',
-                data: { breadcrumb: 'Editar Ubicación' },
+                path: 'locations/edit/:id',
+                data: { breadcrumb: 'Edit Location' },
                 canActivate: [authGuard],
                 loadComponent: () => import('./pages/locations/location-form').then((c) => c.LocationForm)
             },
             {
-                path: 'ubicaciones/generador',
-                data: { breadcrumb: 'Generador de Ubicaciones' },
+                path: 'locations/generator',
+                data: { breadcrumb: 'Location Generator' },
                 canActivate: [authGuard],
                 loadComponent: () => import('./pages/locations/location-generator').then((c) => c.LocationGenerator)
             },
             {
-                path: 'ubicaciones/:locationId/bins',
+                path: 'locations/:locationId/bins',
                 data: { breadcrumb: 'Gestión de Bins' },
                 canActivate: [authGuard],
                 loadComponent: () => import('./pages/bins/bin-list').then((c) => c.BinList)
             },
             {
                 path: 'almacen/disenador',
-                data: { breadcrumb: 'Diseñador de Almacén' },
+                data: { breadcrumb: 'Layout Designer' },
                 canActivate: [authGuard],
                 loadComponent: () => import('./pages/warehouse/warehouse-designer').then((c) => c.WarehouseDesigner)
             }

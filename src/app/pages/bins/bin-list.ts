@@ -23,7 +23,6 @@ import { Location } from '../../types/location';
 import { BinService } from '../service/bin.service';
 import { LocationService } from '../service/location.service';
 import { BinForm } from './bin-form';
-import { BinGenerator } from './bin-generator';
 
 @Component({
     selector: 'app-bin-list',
@@ -47,7 +46,6 @@ import { BinGenerator } from './bin-generator';
         InputSwitchModule,
         SelectButtonModule,
         BinForm,
-        BinGenerator,
         MenuModule
     ],
     providers: [ConfirmationService, MessageService]
@@ -109,7 +107,7 @@ export class BinList implements OnInit {
         private route: ActivatedRoute,
         private confirmationService: ConfirmationService,
         private messageService: MessageService
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.route.params.subscribe(params => {
@@ -127,7 +125,7 @@ export class BinList implements OnInit {
             this.messageService.add({
                 severity: 'error',
                 summary: 'Error',
-                detail: 'Ubicación no encontrada'
+                detail: 'Location not found'
             });
             this.goBack();
         }
@@ -266,7 +264,7 @@ export class BinList implements OnInit {
     }
 
     goBack(): void {
-        this.router.navigate(['/ubicaciones']);
+        this.router.navigate(['/locations']);
     }
 
     getMenuItems(bin: Bin): any[] {

@@ -1,11 +1,11 @@
 <div class="card">
     <div class="flex justify-between items-start mb-4">
         <div>
-            <h2 class="text-3xl font-bold text-surface-900 dark:text-surface-0 m-0">Gestión de Proveedores</h2>
+            <h2 class="text-3xl font-bold text-surface-900 dark:text-surface-0 m-0">Supplier Management</h2>
         </div>
         <div class="flex gap-3 items-center">
             <p-button 
-                label="Nuevo Proveedor" 
+                label="New Supplier" 
                 icon="pi pi-plus" 
                 (onClick)="createNewSupplier()"
                 styleClass="p-button-success">
@@ -33,32 +33,32 @@
         [rows]="10"
         [rowsPerPageOptions]="[5, 10, 20]"
         [showCurrentPageReport]="true"
-        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} proveedores"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} suppliers"
         styleClass="p-datatable-gridlines">
         
         <ng-template pTemplate="header">
             <tr>
                 <th style="width:3rem"></th>
                 <th pSortableColumn="name">
-                    Nombre <p-sortIcon field="name" />
+                    Name <p-sortIcon field="name" />
                 </th>
                 <th pSortableColumn="contactName">
-                    Contacto <p-sortIcon field="contactName" />
+                    Contact <p-sortIcon field="contactName" />
                 </th>
                 <th pSortableColumn="email">
                     Email <p-sortIcon field="email" />
                 </th>
                 <th pSortableColumn="phone">
-                    Teléfono <p-sortIcon field="phone" />
+                    Phone <p-sortIcon field="phone" />
                 </th>
                 <th pSortableColumn="city">
-                    Ciudad <p-sortIcon field="city" />
+                    City <p-sortIcon field="city" />
                 </th>
                 <th pSortableColumn="country">
-                    País <p-sortIcon field="country" />
+                    Country <p-sortIcon field="country" />
                 </th>
                 <th pSortableColumn="active">
-                    Estado <p-sortIcon field="active" />
+                    Status <p-sortIcon field="active" />
                 </th>
             </tr>
         </ng-template>
@@ -100,7 +100,7 @@
                 <td colspan="8" class="text-center py-8">
                     <div class="flex flex-col items-center gap-3">
                         <i class="pi pi-inbox text-4xl text-gray-400"></i>
-                        <p class="text-gray-500">No se encontraron proveedores</p>
+                        <p class="text-gray-500">No suppliers found</p>
                     </div>
                 </td>
             </tr>

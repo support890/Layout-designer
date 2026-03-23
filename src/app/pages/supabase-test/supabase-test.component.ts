@@ -41,7 +41,7 @@ import { MessageService } from 'primeng/api';
 
         <div class="col-span-12 md:col-span-3">
           <p-button 
-            label="Cargar Ubicaciones"
+            label="Load Locations"
             icon="pi pi-map-marker"
             (onClick)="loadLocations()"
             styleClass="w-full">
@@ -152,14 +152,14 @@ export class SupabaseTestComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: 'Éxito',
-        detail: `${this.data.length} ubicaciones cargadas`
+        detail: `${this.data.length} locations loaded`
       });
     } catch (error: any) {
       console.error('Error:', error);
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: error.message || 'Error al cargar ubicaciones'
+        detail: error.message || 'Error loading locations'
       });
     } finally {
       this.loading = false;

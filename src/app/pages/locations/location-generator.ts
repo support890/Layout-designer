@@ -203,10 +203,10 @@ export class LocationGenerator {
                 this.bulkNameFormat = '{Prefix}-{Number}';
                 this.showBinDialog = true;
             } else {
-                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron generar ubicaciones' });
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Could not generate locations' });
             }
         } catch {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al generar las ubicaciones' });
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error generating locations' });
         }
     }
 
@@ -235,7 +235,7 @@ export class LocationGenerator {
                 );
                 this.messageService.add({
                     severity: 'success', summary: 'Éxito',
-                    detail: `${created.length} bins creados en ${this.generatedLocationIds.length} ubicaciones`
+                    detail: `${created.length} bins created in ${this.generatedLocationIds.length} locations`
                 });
                 setTimeout(() => this.goBack(), 1500);
             } catch {
@@ -270,7 +270,7 @@ export class LocationGenerator {
                 );
                 this.messageService.add({
                     severity: 'success', summary: 'Éxito',
-                    detail: `Bin "${this.newBinName}" creado en ${created.length} ubicaciones`
+                    detail: `Bin "${this.newBinName}" created in ${created.length} locations`
                 });
                 setTimeout(() => this.goBack(), 1500);
             } catch {
@@ -301,7 +301,7 @@ export class LocationGenerator {
                 this.messageService.add({
                     severity: 'success',
                     summary: 'Éxito',
-                    detail: `${generated.length} ubicaciones creadas correctamente`
+                    detail: `${generated.length} locations created successfully`
                 });
 
                 setTimeout(() => this.goBack(), 1500);
@@ -309,14 +309,14 @@ export class LocationGenerator {
                 this.messageService.add({
                     severity: 'error',
                     summary: 'Error',
-                    detail: 'No se pudieron generar ubicaciones'
+                    detail: 'Could not generate locations'
                 });
             }
         } catch (error) {
             this.messageService.add({
                 severity: 'error',
                 summary: 'Error',
-                detail: 'Error al generar las ubicaciones'
+                detail: 'Error generating locations'
             });
         }
     }
@@ -380,7 +380,7 @@ export class LocationGenerator {
             this.messageService.add({
                 severity: 'warn',
                 summary: 'Validación',
-                detail: 'No se pueden generar más de 1000 ubicaciones a la vez'
+                detail: 'Cannot generate more than 1000 locations at once'
             });
             return false;
         }
@@ -389,6 +389,6 @@ export class LocationGenerator {
     }
 
     goBack(): void {
-        this.router.navigate(['/ubicaciones']);
+        this.router.navigate(['/locations']);
     }
 }
